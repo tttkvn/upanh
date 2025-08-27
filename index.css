@@ -1,0 +1,315 @@
+:root {
+  --background-color: #121212;
+  --card-color: #1e1e1e;
+  --primary-color: #6a48d7;
+  --primary-hover-color: #583db3;
+  --text-color: #e0e0e0;
+  --text-muted-color: #888888;
+  --border-color: #333333;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.app-header h1 {
+  color: white;
+  font-weight: 700;
+  font-size: 1.75rem;
+}
+
+.category-nav {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 10px; /* For scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--card-color);
+}
+
+.category-btn {
+  background-color: var(--card-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+}
+
+.category-btn:hover {
+  background-color: var(--border-color);
+}
+
+.category-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.add-image-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.add-image-btn:hover {
+  background-color: var(--primary-hover-color);
+}
+
+.add-image-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.content-area {
+    min-height: 300px; /* Ensure a minimum height */
+}
+
+/* Masonry Grid Layout */
+.image-grid {
+  column-count: 5;
+  column-gap: 1rem;
+}
+
+@media (max-width: 1200px) {
+  .image-grid {
+    column-count: 4;
+  }
+}
+@media (max-width: 900px) {
+  .image-grid {
+    column-count: 3;
+  }
+}
+@media (max-width: 600px) {
+  .image-grid {
+    column-count: 2;
+  }
+}
+
+
+.image-container {
+  position: relative;
+  break-inside: avoid; /* Prevents images from splitting across columns */
+  margin-bottom: 1rem;
+  display: inline-block; /* Fix for container sizing */
+  width: 100%;
+}
+
+.image-container:hover .delete-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.image-grid img {
+  width: 100%;
+  height: auto; /* Allow images to have their natural height */
+  display: block; /* Remove bottom space */
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.image-grid img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.delete-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: rgba(239, 68, 68, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+  z-index: 10;
+}
+
+.delete-btn:hover {
+  background-color: rgb(220, 38, 38);
+}
+
+.delete-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-muted-color);
+  border: 2px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--card-color);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.pagination button {
+    background-color: var(--card-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: var(--border-color);
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination span {
+    color: var(--text-muted-color);
+    font-weight: 500;
+}
+
+.notification {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background-color: var(--card-color);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+}
+
+.modal-content h2 {
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.modal-content p {
+  margin-bottom: 1.5rem;
+  color: var(--text-muted-color);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modal-btn {
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-btn.confirm {
+  background-color: #ef4444; /* Red */
+  color: white;
+}
+
+.modal-btn.confirm:hover {
+  background-color: #dc2626;
+}
+
+.modal-btn.cancel {
+  background-color: #4b5563; /* Gray */
+  color: white;
+}
+
+.modal-btn.cancel:hover {
+  background-color: #374151;
+}
