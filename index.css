@@ -48,6 +48,103 @@ body {
   font-size: 1.75rem;
 }
 
+/* Settings Panel */
+.settings-panel {
+  background-color: var(--card-color);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.settings-header {
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.settings-header:hover {
+  background-color: #2a2a2a;
+}
+
+.settings-header h2 {
+  color: white;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.settings-header svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.settings-header.open svg {
+  transform: rotate(180deg);
+}
+
+.settings-content {
+  padding: 0 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: var(--text-muted-color);
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(106, 72, 215, 0.5);
+}
+
+.settings-content .load-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 0.5rem;
+  align-self: flex-start;
+}
+
+.settings-content .load-btn:hover:not(:disabled) {
+  background-color: var(--primary-hover-color);
+}
+
+.settings-content .load-btn:disabled {
+  background-color: #333;
+  color: #777;
+  cursor: not-allowed;
+}
+
+
 .category-nav {
   display: flex;
   gap: 0.5rem;
@@ -95,8 +192,14 @@ body {
   gap: 0.5rem;
 }
 
-.add-image-btn:hover {
+.add-image-btn:hover:not(:disabled) {
   background-color: var(--primary-hover-color);
+}
+
+.add-image-btn:disabled {
+  background-color: #333;
+  color: #777;
+  cursor: not-allowed;
 }
 
 .add-image-btn svg {
@@ -179,8 +282,13 @@ body {
   z-index: 10;
 }
 
-.delete-btn:hover {
+.delete-btn:hover:not(:disabled) {
   background-color: rgb(220, 38, 38);
+}
+
+.delete-btn:disabled {
+  background-color: rgba(75, 85, 99, 0.8);
+  cursor: not-allowed;
 }
 
 .delete-btn svg {
@@ -312,4 +420,31 @@ body {
 
 .modal-btn.cancel:hover {
   background-color: #374151;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  backdrop-filter: blur(2px);
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
